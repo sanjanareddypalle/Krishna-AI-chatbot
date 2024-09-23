@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishna Chatbot</title>
+    <style>
+        
+
+        header {
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+
+        h1 {
+        
+            padding:20px;
+            color:white;
+            font-size: 2.5em;
+        }
+
+        p {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .krishna-image-container {
+            margin-bottom: 20px;
+            padding:10px;
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-left: 168px;
+}
+
+        .krishna-image {
+            padding: 10px;
+            align-items: center;
+            height:150px;
+            width:150px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatbot-container {
+           padding-top: 5px;
+            padding:10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        #start-chat {
+            background-color: #00695c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+
+        #chatbot {
+            /* display: none; */
+            background-color: white;
+            border-radius: 10px;
+            border: 2px solid #00695c;
+            width:500px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbot-body {
+           
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 10px;
+            background-color: #f9f9f9;
+            
+        }
+
+        .chatbot-footer {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        #user-input {
+            flex-grow: 1;
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #send-btn {
+            background-color: #00695c;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .emoji-selection {
+            margin-top: 10px;
+        }
+
+        .emoji {
+            font-size: 2em;
+            cursor: pointer;
+            padding: 5px;
+            transition: transform 0.2s ease;
+        }
+
+        .emoji:hover {
+            transform: scale(1.3);
+        }
+
+        .krishna-message, .user-message {
+            background-color: #dcedc8;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .user-message {
+            background-color: #e0f7fa;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            
+        } 
+
+        h1 {
+            padding:10px;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        h2 {
+            
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+  
+
+        .chat-container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding-top: 30px;
+            width: 300px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            max-height: 400px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            background: #4CAF50;
+            align-self: flex-end;
+            color: white;
+        }
+
+        .krishna-message {
+            background: #2196F3;
+            align-self: flex-start;
+            color: white;
+        }
+
+        .input-container {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .input-container input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .input-container button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #FF9800;
+            color: white;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        /* Peacock Feather Animation */
+        .peacock-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0,0,255,0.1), rgba(0,255,255,0), rgba(0,255,0,0));
+            animation: featherEffect 3s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes featherEffect {
+            0%, 100% {
+                background: radial-gradient(circle at center, rgba(0,0,255,0.1), rgba(0,255,255,0), rgba(0,255,0,0));
+            }
+            50% {
+                background: radial-gradient(circle at center, rgba(0,255,255,0.1), rgba(0,255,0,0.5), rgba(0,0,255,0));
+            }
+        }
+        .language-selector {
+            margin-bottom: 20px;
+        }
+.emoji-selection {
+    margin-top: 10px;
+}
+
+.emoji {
+    font-size: 2em;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.2s ease;
+}
+
+.emoji:hover {
+    transform: scale(1.3);
+}
+        .krishna-image {
+            width: 100px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            align-self: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="peacock-effect"></div>
+
+    <header>
+        <h1>Interactive Chat with Lord Krishna</h1>
+        <h2>Feel the peace of divine guidance</h2>
+    </header>
+
+    <section class="main-content">
+        
+        <div class="krishna-image-container">
+            <img src="https://img.freepik.com/premium-photo/lord-krishna-realistic-image_669954-5405.jpg" alt="Lord Krishna" class="krishna-image" style="width: auto;">
+        </div>
+
+        <div class="chatbot-container">
+            <button id="start-chat">Start Chat with Krishna</button>
+
+            <div id="chatbot" class="chatbot">
+                <div class="chatbot-body" id="chatbot-body">
+                    <div class="krishna-message" id="krishna-message">
+                   <p>Welcome, dear one! How are you?</p>
+                    </div>
+                </div>
+
+                <div class="chatbot-footer">
+                    <input type="text" id="user-input" placeholder="Your reply here...">
+                    <button id="send-btn">Send</button>
+                </div>
+                
+                <div id="emoji-selection" class="emoji-selection" style="display:none;">
+                    <p>Select how you're feeling:</p>
+                    <span class="emoji" onclick="emojiSelect('😊')">😊</span>
+                    <span class="emoji" onclick="emojiSelect('😔')">😔</span>
+                    <span class="emoji" onclick="emojiSelect('😎')">😎</span>
+                   
+                </div>
+                
+                
+                <div class="language-selection">
+                    <label for="language-select">Choose Language:</label>
+                    <select id="language-select">
+                        <option value="english">English</option>
+                        <option value="hindi">Hindi</option>
+                        <option value="sanskrit">Sanskrit</option>
+                    </select>
+                </div>
+                
+                <audio id="audio-english" src="audio/krishna_english.mp3"></audio>
+                <audio id="audio-hindi" src="audio/krishna_hindi.mp3"></audio>
+                <audio id="audio-sanskrit" src="audio/krishna_sanskrit.mp3"></audio>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById("start-chat").addEventListener("click", function() {
+            document.getElementById("chatbot").style.display = "flex";
+            document.getElementById("start-chat").style.display = "none";
+        });
+
+        document.getElementById("send-btn").addEventListener("click", function() {
+            const userInput = document.getElementById("user-input").value.trim();
+            if (userInput !== "") {
+                addUserMessage(userInput);
+                generateKrishnaReply(userInput);
+                document.getElementById("user-input").value = "";
+            }
+        });
+
+        function addUserMessage(message) {
+            const chatBody = document.getElementById("chatbot-body");
+            const userMessageDiv = document.createElement("div");
+            userMessageDiv.classList.add("user-message");
+            userMessageDiv.textContent = message;
+            chatBody.appendChild(userMessageDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function generateKrishnaReply(userInput) {
+            const chatBody = document.getElementById("chatbot-body");
+            const krishnaReplyDiv = document.createElement("div");
+            krishnaReplyDiv.classList.add("krishna-message");
+
+            const selectedLanguage = document.getElementById("language-select").value;
+
+            if (userInput.toLowerCase().includes("happy")) {
+                krishnaReplyDiv.textContent = "Oh! Wonderful! You can listen to peaceful slogans by selecting a happy emoji.";
+                document.getElementById("emoji-selection").style.display = "block";
+                playAudio(selectedLanguage, "happy");
+            } else if (userInput.toLowerCase().includes("sad")) {
+                krishnaReplyDiv.textContent = "Don't worry, dear one. Everything will be fine. How are you feeling? 😊";
+                document.getElementById("emoji-selection").style.display = "block";
+                playAudio(selectedLanguage, "sad");
+            } else if (userInput.toLowerCase().includes("hopeless")) {
+                krishnaReplyDiv.textContent = "Don't worry, you will become hopeful. Just believe in yourself!";
+                document.getElementById("emoji-selection").style.display = "block";
+                playAudio(selectedLanguage, "hopeless");
+            } else {
+                krishnaReplyDiv.textContent = "Set your mood accordingly by choosing a relevant emoji.";
+                document.getElementById("emoji-selection").style.display = "block";
+                playAudio(selectedLanguage, "neutral");
+            }
+
+            chatBody.appendChild(krishnaReplyDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        function playAudio(language, mood) {
+            const audioElement = document.getElementById(`audio-${language}`);
+            audioElement.play();
+        }
+
+        function emojiSelect(emoji) {
+            const chatBody = document.getElementById("chatbot-body");
+            const userEmojiDiv = document.createElement("div");
+            userEmojiDiv.classList.add("user-message");
+            userEmojiDiv.textContent = emoji;
+
+            const krishnaReplyDiv = document.createElement("div");
+            krishnaReplyDiv.classList.add("krishna-message");
+
+            if (emoji === "😊") {
+                krishnaReplyDiv.textContent = "I see you're feeling happy! Always stay joyful!";
+            } else if (emoji === "😔") {
+                krishnaReplyDiv.textContent = "It seems you're feeling low. Remember, I am always with you.";
+            } else if (emoji === "😎") {
+                krishnaReplyDiv.textContent = "Ah! You're feeling cool and confident! Stay balanced, dear one!";
+            }
+
+            chatBody.appendChild(userEmojiDiv);
+            chatBody.appendChild(krishnaReplyDiv);
+            chatBody.scrollTop = chatBody.scrollHeight;
+
+            document.getElementById("emoji-selection").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>
